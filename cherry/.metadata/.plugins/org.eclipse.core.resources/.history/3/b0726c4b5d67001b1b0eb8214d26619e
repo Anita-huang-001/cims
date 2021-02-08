@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.cims.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mi.cims.bean.po.UserInfo">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />  
+    <result column="LOGIN_ID" jdbcType="VARCHAR" property="loginId" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="passWord" /> 
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />  
+    <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />     
+    <result column="MAIL" jdbcType="VARCHAR" property="mail" /> 
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+    <result column="LAST_LOGIN_TIME" jdbcType="BIGINT" property="lastLoginTime" />  
+    <result column="CREATE_TIME" jdbcType="BIGINT" property="createTime" />  
+    <result column="CREATE_ID" jdbcType="INTEGER" property="createId" /> 
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />     
+    <result column="UPDATE_ID" jdbcType="INTEGER" property="updateId" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapVo" type="com.mi.cims.bean.vo.UserInfoVo">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />  
+    <result column="LOGIN_ID" jdbcType="VARCHAR" property="loginId" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="passWord" /> 
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />  
+    <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />     
+    <result column="MAIL" jdbcType="VARCHAR" property="mail" /> 
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+    <result column="LAST_LOGIN_TIME" jdbcType="BIGINT" property="lastLoginTime" />  
+    <result column="CREATE_TIME" jdbcType="BIGINT" property="createTime" />  
+    <result column="CREATE_ID" jdbcType="INTEGER" property="createId" /> 
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />     
+    <result column="UPDATE_ID" jdbcType="INTEGER" property="updateId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    USER_ID, LOGIN_ID, PASSWORD, USER_NAME, USER_PHONE, MAIL, DELETE_FLAG , LAST_LOGIN_TIME, CREATE_TIME, CREATE_ID, UPDATE_TIME, UPDATE_ID
+  </sql>
+  <!-- 根据主键ID查询用户信息 -->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where USER_ID = #{userId,jdbcType=VARCHAR} and DELETE_FLAG = 0
+  </select>
+  
+  <!-- 根据登录ID查询用户信息 -->
+  <select id="selectByLoginId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where LOGIN_ID = #{loginId,jdbcType=VARCHAR} and DELETE_FLAG = 0
+  </select>
+  
+  <!-- 查询所有用户信息 -->
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from user_info
+    where DELETE_FLAG = 0
+  </select>
+  
+  <!-- 根据条件查询相应用户信息 -->
+  <select id="selectByCondittion" parameterType="com.mi.cims.bean.bo.userInfo.GetUserInfoBo" resultMap="BaseResultMapVo">
+    select 
+    ui.USER_ID, ui.LOGIN_ID, ui.USER_NAME, ui.USER_PHONE, ui.MAIL, ui.LAST_LOGIN_TIME, ri.role_name
+    from user_info as ui left join user_role as ur on ui.USER_ID = ur.user_id left join role_info as ri on ur.role_id = ri.role_id
+    where 
+    <if test="loginId != null and loginId != ''">
+    	ui.LOGIN_ID like concat('%',replace(replace(#{loginId,jdbcType=VARCHAR},'\\','\\\\'),'%','\\%'),'%') and
+    </if>
+    <if test="roleId != null and roleId != ''">
+    	ur.role_id = #{roleId,jdbcType=INTEGER} and
+    </if>
+    	ui.DELETE_FLAG = 0 and ur.delete_flag = 0
+    order by ui.LAST_LOGIN_TIME desc
+  </select>
+  
+  <!-- 新建用户信息 -->
+  <insert id="insert" parameterType="com.mi.cims.bean.po.UserInfo">
+    insert into user_info (LOGIN_ID, PASSWORD, USER_PHONE, USER_NAME, MAIL, DELETE_FLAG, CREATE_TIME, CREATE_ID)
+    values (#{loginId,jdbcType=VARCHAR},#{passWord,jdbcType=VARCHAR},#{userPhone,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},
+			#{mail,jdbcType=VARCHAR},#{deleteFlag,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{createId,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 更新用户信息 -->
+  <update id="update">
+    update user_info as i LEFT JOIN user_role as r on i.USER_ID = r.user_id
+    <set>  
+      <if test="userInfo.userName != null and userInfo.userName != ''">
+        i.USER_NAME = #{userInfo.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfo.userPhone != null and userInfo.userPhone != ''">
+        i.USER_PHONE = #{userInfo.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfo.mail != null and userInfo.mail != ''">
+        i.MAIL = #{userInfo.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfo.updateTime != null and userInfo.updateTime != ''">
+        i.UPDATE_TIME = #{userInfo.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="userInfo.updateId != null and userInfo.updateId != ''">
+        i.UPDATE_ID = #{userInfo.updateId,jdbcType=INTEGER},
+      </if>
+      <if test="userRole.roleId != null and userRole.roleId != ''">
+        r.role_id = #{userRole.roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where i.USER_ID = #{userInfo.userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 重置用户登录密码 -->
+  <update id="resetPwd" parameterType="com.mi.cims.bean.po.UserInfo">
+    update user_info
+    <set>
+      <if test="passWord != null and passWord != ''">
+        PASSWORD = #{passWord,jdbcType=BIGINT},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 删除用户信息 -->
+  <update id="deleteUserInfo">
+    update user_info as i LEFT JOIN user_role as r on i.USER_ID = r.USER_ID
+    <set>
+        i.DELETE_FLAG = #{deleteFlag,jdbcType=VARCHAR},
+        r.DELETE_FLAG = #{deleteFlag,jdbcType=VARCHAR},
+    </set>
+    where i.USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

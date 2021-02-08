@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "i-icon": "../../style/i-dist/icon/index"
+  },
+  "backgroundTextStyle":"light",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "修改密码",
+  "navigationBarTextStyle":"black"
+}

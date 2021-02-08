@@ -1,0 +1,27 @@
+<!-- 页数信息 -->
+<div>
+	{{'显示'|T:'000009'}}&nbsp;{{pagination.navigateFirstPage}}&nbsp;-&nbsp;{{pagination.navigateLastPage}}&nbsp;{{'页结果，共'|T:'000010'}}&nbsp;{{pagination.pages}}&nbsp;{{'页'|T:'000011'}}
+</div>
+<!-- 分页组件 -->
+<div class="center-block">
+	<ul class="pagination">
+		<li class="{{pagination.isFirstPage ? 'disabled' : 'normal'}}"><a
+			title="{{'第一页'|T:'200011'}}" href="javaScript:void(0);"
+			data-ng-click="changePagination(1)">&lt;&lt;</a></li>
+		<li class="{{pagination.hasPreviousPage ? 'normal' : 'disabled'}}">
+			<a title="{{'前一页'|T:'200013'}}" href="javaScript:void(0);"
+			data-ng-click="changePagination(pagination.prePage)">&lt;</a>
+		</li>
+		<li data-ng-repeat="pageNum in pagination.navigatepageNums"
+			class="{{pageNum === pagination.pageNum ? 'active' : 'normal'}}">
+			<a href="javaScript:void(0);"
+			data-ng-click="changePagination(pageNum)">{{pageNum}}</a>
+		</li>
+		<li class="{{pagination.hasNextPage ? 'normal' : 'disabled'}}"><a
+			title="{{'后一页'|T:'200014'}}" href="javaScript:void(0);"
+			data-ng-click="changePagination(pagination.nextPage)">&gt;</a></li>
+		<li class="{{pagination.isLastPage ? 'disabled' : 'normal'}}"><a
+			title="{{'最后一页'|T:'200012'}}" href="javaScript:void(0);"
+			data-ng-click="changePagination(pagination.pages)">&gt;&gt;</a></li>
+	</ul>
+</div>

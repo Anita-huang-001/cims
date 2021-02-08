@@ -1,0 +1,59 @@
+/* 头部内容 */
+#header {
+    height: 60px;
+    background: #62abe0;
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+/* 总布局 */
+#header .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* 系统名称部分 */
+#header .navbar .navbar-brand {
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* logo图片 */
+#header .navbar .navbar-brand>img {
+    display: inline;
+    vertical-align: top;
+    margin-top: 2px;
+    margin-right: 2px;
+    width: 55px;
+    height: 55px;
+}
+
+/* 系统名称文字 */
+#header .navbar .navbar-brand .text-slogan {
+	color: #ffffff;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 18px;
+    display: inline-block;
+}
+
+/* 系统名称文字 */
+#header .navbar .navbar-nav .select-lang {
+	width: auto;
+	height: auto;
+	border: 0px;
+    margin-right: 10px;
+}
+
+/* 纯图标按钮 */
+.image-button-sapn {
+	margin: 0px;
+}
+
+/* 标题栏中工具按钮 */
+.header-tools-btn {
+	margin-top: 12px !important;
+	margin-right: 5px !important;
+}

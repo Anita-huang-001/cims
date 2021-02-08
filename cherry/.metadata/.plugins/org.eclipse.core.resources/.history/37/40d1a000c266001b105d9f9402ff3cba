@@ -1,0 +1,31 @@
+package com.mi.cims.bean.bo;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.mi.cims.constant.PatternRegexp;
+
+import lombok.Data;
+
+/**
+ * @ClassName: LoginInfoBo
+ * @Description: 登录对象信息
+ * @author: 刘伟
+ * @date: 2017年9月5日 上午10:22:00
+ */
+@Data
+public class LoginInfoBo {
+
+	@NotBlank(message = "parameter.error")
+	@Size(max = 32, message = "parameter.error")
+    @Pattern(regexp = PatternRegexp.loginId, message = "loginId")
+	// 管理员用户登录ID
+    private String managerId;
+
+	@NotBlank(message = "parameter.error")
+    // 管理员用户密码
+    private String managerPwd;   
+
+}

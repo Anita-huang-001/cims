@@ -1,0 +1,20 @@
+<view class="content">
+  <view class="input">
+    <view class="input1">
+      <view>用户名</view>
+      <view>
+        <input class="input1_input" type="text" id="loginId" name="loginId" value="{{loginId}}" maxlength="32" placeholder="请输入用户名" bindinput="saveLoginId"/>
+      </view>
+    </view>
+    <view class="input2">
+      <view>密码</view>
+      <view>
+        <input class="input2_input" password="{{showPwd}}" id="loginPwd" name="loginPwd" value="{{loginPwd}}" maxlength="32" placeholder="请输入密码" bindinput="saveLoginPwd"/>
+        <i-icon class="input2_icon" type="{{showPwd ? 'browse_fill' : 'browse'}}" size="24" color="#000" bindtap="changeShow"/>
+      </view>
+    </view>
+  </view>
+</view>
+<view>
+  <button class="login" bindtap="login">登陆</button>
+</view>

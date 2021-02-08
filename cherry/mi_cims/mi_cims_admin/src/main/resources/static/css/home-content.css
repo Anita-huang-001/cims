@@ -1,0 +1,172 @@
+@import "group.css";
+@import "pwd-policy.css";
+
+/* 主页主内容 */
+#content {
+    margin-left: 210px;
+    padding-top: 60px;
+}
+
+/* 主内容 */
+#content .content-wrapper {
+    height: auto;
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+/* 导航栏 */
+.breadcrumbs {
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #e0e4e6;
+    min-height: 41px;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    display: block;
+}
+
+/* 导航栏中导航项 */
+.breadcrumb {
+    background-color: transparent;
+    display: inline-block;
+    line-height: 24px;
+    margin: 0 22px 0 12px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: #3a3e42;
+    border-radius: 0;
+}
+
+/* 主内容 */
+.main-content {
+	margin-top: 15px;
+}
+
+/* 内容面板 */
+.content-panel {
+	margin-top: 0px;
+	margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+/* 内容面板标题 */
+.content-panel .panel-title {
+	font-size: 15px;
+}
+
+/* 内容面板标题图标 */
+.content-panel .panel-title i {
+	margin-right: 5px;
+}
+
+/* 查询结果内容体 */
+.content-panel .result-panel-body {
+    padding: 0px;
+}
+
+/* 表格上部操作按钮面板 */
+.table-title-panel {
+	padding: 10px;
+    background-color: #eff3f8;
+}
+
+/* 表格 */
+.dataTable {
+    margin-bottom: 0;
+}
+
+/* 表格边框 */
+.table-bordered {
+	border: 1px solid #ddd !important;
+}
+
+/* 表格头行属性 */
+.table thead tr {
+    color: #707070;
+    font-weight: normal;
+    background: #f2f2f2;
+    background-image: -webkit-gradient(linear,left 0,left 100%,from(#f8f8f8),to(#ececec));
+    background-image: -webkit-linear-gradient(top,#f8f8f8,0%,#ececec,100%);
+    background-image: -moz-linear-gradient(top,#f8f8f8 0,#ececec 100%);
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0);
+}
+
+/* 表格边框 */
+th, td, .table-bordered {
+    border-radius: 0!important;
+}
+
+/* 表格中操作图标 */
+.table-operate-icon {
+    font-size: 115%;
+}
+
+/* 表格中操作按钮*/
+.action-buttons a {
+    margin: 0 3px;
+    display: inline-block;
+    opacity: .85;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+}
+
+/* 表格中操作按钮   获取焦点 */
+.action-buttons a:hover {
+    text-decoration: none;
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* 表格中没有数据提示面板 */
+.table-no-data {
+	padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px;
+    border: 1px solid #ddd;
+}
+
+/* 绿色 */
+.green {
+    color: #69aa46!important;
+}
+
+/* 红色 */
+.red {
+    color: #dd5a43!important;
+}
+
+/* 分页面板 */
+.table-pagination-panel {
+    background-color: #eff3f8;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* 分页组件 */
+.pagination {
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+
+/* 分页组件中按钮 */
+.pagination>li>a, .pagination>li>span {
+	border-radius: 0!important;
+}
+
+.ztree {
+    margin-top: 13px;
+    padding-left: 5px;
+}
+
+.ztree * {
+    font-size: 14px;
+}

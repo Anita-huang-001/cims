@@ -1,0 +1,37 @@
+.margin-top-15 {
+	margin-top:15px;
+}
+
+/*图形口令长度输入框*/
+.width-persent-65{
+	width: 65%;
+	display:inline-block;
+}
+
+/*有效期间输入框*/
+.width-persent-90 {
+	width: 90%;
+	display:inline-block;
+}
+
+/*数字图片大小*/
+div img {
+	width: 35px;
+	height:35px;
+}
+
+.matrix-image-position  td {
+	border:1px;
+	border-color:#ffffff;
+	padding:1px;
+	text-align:center;
+}
+
+/*重置图形口令按钮控制*/
+.display-inline {
+	display: inline-block;
+}
+/*重置图形口令按钮控制*/
+.reset_button {
+	float: right;
+}

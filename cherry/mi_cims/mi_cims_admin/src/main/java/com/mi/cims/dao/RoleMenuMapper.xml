@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.cims.dao.RoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.mi.cims.bean.po.RoleMenu">
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_id, menu_id, create_time, create_user_id
+  </sql>
+<!--   <select id="selectByPrimaryKey" parameterType="com.mi.cims.bean.po.RoleMenuKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mi.cims.bean.po.RoleMenuKey">
+    delete from role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and menu_id = #{menuId,jdbcType=INTEGER}
+  </delete> -->
+  <insert id="insert" parameterType="com.mi.cims.bean.po.RoleMenu">
+    insert into role_menu (role_id, menu_id, create_time, 
+      create_user_id)
+    values (#{roleId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mi.cims.bean.po.RoleMenu">
+    insert into role_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="menuId != null">
+        menu_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mi.cims.bean.po.RoleMenu">
+    update role_menu
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mi.cims.bean.po.RoleMenu">
+    update role_menu
+    set create_time = #{createTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <!-- 批量插入角色菜单关系 -->
+  <insert id="insertList" parameterType="java.util.List">
+    insert into role_menu (role_id, menu_id, create_time, create_user_id)
+    values 
+    <!-- item就是List里每一项的对象名，要用","分割每一条数据，最后要";"结尾-->
+    <foreach collection="list" item="item" index="index" separator="," close=";">
+      (#{item.roleId,jdbcType=INTEGER}, #{item.menuId,jdbcType=INTEGER}, #{item.createTime,jdbcType=BIGINT}, 
+      #{item.createUserId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <!-- 根据角色ID删除角色菜单关系 -->
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+    delete from role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <!-- 根据角色ID查询菜单ID -->
+  <select id="selectMenuIdByRoleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select 
+    menu_id
+    from role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+</mapper>

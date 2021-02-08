@@ -1,0 +1,143 @@
+package com.mi.cims.service.impl;
+
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+
+import com.mi.cims.bean.bo.ChangePwdBo;
+import com.mi.cims.bean.bo.LoginInfoBo;
+import com.mi.cims.bean.po.RoleInfo;
+import com.mi.cims.bean.po.UserInfo;
+import com.mi.cims.bean.po.UserRole;
+import com.mi.cims.bean.pojo.ResultInfo;
+import com.mi.cims.bean.vo.UserInfoVo;
+import com.mi.cims.constant.ResultCode;
+import com.mi.cims.dao.RoleInfoMapper;
+import com.mi.cims.dao.UserInfoMapper;
+import com.mi.cims.dao.UserRoleMapper;
+import com.mi.cims.exception.BusinessException;
+import com.mi.cims.service.LoginService;
+
+/**
+ * ClassName: LoginServiceImpl
+ * Function:  登录服务接口实现
+ *
+ * @author  孙忠飞
+ * @date    2020年12月09日 下午1:14:09
+ * @version V1.0.0
+ */
+@Service
+public class LoginServiceImpl implements LoginService {
+
+    // 用户信息
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    
+    // 用户角色信息
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    
+    // 用户角色信息
+    @Autowired
+    private RoleInfoMapper roleInfoMapper;
+    
+    // 语言国际化获取
+	@Autowired
+	private MessageSource messageSource;
+
+    /**   
+     * @Title: checkLogin
+     * @Description: 登录验证
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  loginInfo 登录信息
+     * @return: ResultInfo 成功的用户信息
+     * @throws: Exception
+     */
+    public ResultInfo checkLogin(LoginInfoBo loginInfo, Locale locale) throws Exception {
+        // 根据登录id查询用户信息
+    	UserInfo userInfo = userInfoMapper.selectByLoginId(loginInfo.getLoginId());
+    	// 当前用户不存在
+        if (userInfo == null) {
+            throw new BusinessException(ResultCode.ERROR_USER_NOT_EXIST);
+        } else {
+        	// 输入密码不正确
+			if (!userInfo.getPassWord().equalsIgnoreCase(loginInfo.getLoginPwd())) {
+				throw new BusinessException(ResultCode.ERROR_PWD_CHECK_FAIL);
+			}
+        }
+        // 更新用户最后一次登陆时间
+        userInfoMapper.updateLoginTime(System.currentTimeMillis(), userInfo.getUserId());
+        userInfo = userInfoMapper.selectByLoginId(loginInfo.getLoginId());
+        // 创建返回用户信息实例
+        UserInfoVo userInfoVo = new UserInfoVo();
+        // 复制用户信息
+        BeanUtils.copyProperties(userInfo, userInfoVo);
+    	// 根据用户ID查询所拥有的角色
+    	List<UserRole> UserRole = userRoleMapper.selectRoleByUserId(userInfo.getUserId());
+        // 用户角色信息数组
+        String[] roleId = new String[UserRole.size()];
+    	for(int i=0;i<UserRole.size();i++) {
+    		roleId[i] = UserRole.get(i).getRoleId().toString();
+    	}
+        // 根据角色数组查询所有角色
+        List<RoleInfo> roleInfoList = roleInfoMapper.selectUserInfoAll(roleId);
+        // 保存角色信息
+        userInfoVo.setRoleInfoList(roleInfoList);
+        // 返回结果信息
+        return new ResultInfo(messageSource.getMessage(ResultCode.SUCCESS, null, locale),userInfoVo);
+    }
+    
+    /**   
+     * @Title: changePwd
+     * @Description: 修改密码
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  changePwdBo 要修改用户的密码信息
+     * @return: ResultInfo  成功的用户信息
+     * @throws: Exception
+     */
+    public ResultInfo changePwd(ChangePwdBo changePwdBo, Locale locale) throws Exception{
+        // 根据登录id查询用户信息
+        UserInfo userInfo = userInfoMapper.selectByLoginId(changePwdBo.getLoginId());
+        // 当前用户不存在
+        if(userInfo == null) {
+        	throw new BusinessException(ResultCode.ERROR_USER_NOT_EXIST);
+        }
+        // 判断输入的旧密码是否正确，否则返回错误信息
+        if(userInfo.getPassWord().equalsIgnoreCase(changePwdBo.getOldPwd())) {
+        	// 判断输入的新密码和确认密码是否一致，否则返回错误信息
+        	if(changePwdBo.getNewPwd().equalsIgnoreCase(changePwdBo.getConfirmPwd())) {
+        		// 更新新密码到数据库
+        		userInfo.setPassWord(changePwdBo.getNewPwd());
+        		userInfoMapper.resetPwd(userInfo);
+        	}else {
+        		throw new BusinessException(ResultCode.ERROR_NEWPWD_OR_CONFRIMPWD);
+        	}
+        }else {
+        	throw new BusinessException(ResultCode.ERROR_OLDPWD_CHECK_FAIL);
+        }
+        // 创建返回用户信息实例
+        UserInfoVo userInfoVo = new UserInfoVo();
+        // 复制用户信息
+        BeanUtils.copyProperties(userInfo, userInfoVo);
+    	// 根据用户ID查询所拥有的角色
+    	List<UserRole> UserRole = userRoleMapper.selectRoleByUserId(userInfo.getUserId());
+        // 用户角色信息数组
+        String[] roleId = new String[UserRole.size()];
+    	for(int i=0;i<UserRole.size();i++) {
+    		roleId[i] = UserRole.get(i).getRoleId().toString();
+    	}
+        // 根据角色数组查询所有角色
+        List<RoleInfo> roleInfoList = roleInfoMapper.selectUserInfoAll(roleId);
+        // 保存角色信息
+        userInfoVo.setRoleInfoList(roleInfoList);
+        // 返回结果信息
+        return new ResultInfo(messageSource.getMessage(ResultCode.SUCCESS, null, locale),userInfoVo);
+    }
+    
+}

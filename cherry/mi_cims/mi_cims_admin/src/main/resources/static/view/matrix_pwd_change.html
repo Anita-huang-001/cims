@@ -1,0 +1,99 @@
+<!-- 新建应用页面 -->
+<div class="container-fluid">
+	<!-- 导航栏 -->
+	<div class="row breadcrumbs" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li><i class="glyphicon glyphicon-home"></i> <a
+				href="javaScript:void(0);" data-ng-click="go('home.top')">{{'主页'|T:'300301'}}</a>
+			</li>
+			<li>{{'修改密码'|T:'300201'}}</li>
+		</ul>
+	</div>
+	<!-- 内容主体 -->
+	<div class="main-content">
+		<div class="content-panel panel panel-success">
+			<!-- 标题 -->
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="glyphicon glyphicon-plus"></i>{{'修改密码'|T:'300201'}}</h3>
+			</div>
+			<!-- 新建内容 -->
+			<div class="panel-body">
+				<!-- 新建表单 -->
+				<form name="matrixPwdUpdateForm" class="form-horizontal" role="form" novalidate>
+				<!-- 原图形图形口令 -->
+				<div class="form-group form-item-group">
+					<label for="oldMatrixPwd" class="col-sm-3 col-sm-offset-2 form-input-label">{{'旧密码'|T:'300202'}}</label>
+					<div class="col-sm-4">
+						<!-- 原图形口令输入框 -->
+						<input type="password" class="form-input form-control"
+							id="oldMatrixPwd" name="oldMatrixPwd"
+							data-ng-model="managerInfo.oldMatrixPwd" data-ng-minlength="6" maxlength="32"
+							data-ng-pattern="PATTERN.matrixPwdSe" required>
+							
+						<!-- 图形口令错误提示信息 -->
+						<div >
+							<span class="{{matrixPwdUpdateForm.oldMatrixPwd.$error.required ? 'form-input-error':'form-input-tip'}}">{{'必填'|T:'400001'}}</span>
+							<span class="{{matrixPwdUpdateForm.oldMatrixPwd.$error.minlength ? 'form-input-error':'form-input-tip'}}">{{'长度为6~32'|T:'400904'}}</span>
+							<span class="{{matrixPwdUpdateForm.oldMatrixPwd.$error.pattern ? 'form-input-error':'form-input-tip'}}">{{'格式错误'|T:'400301'}}</span>
+						</div>
+					</div>
+				</div>
+					
+				<!-- 图形口令 -->
+				<div class="form-group form-item-group">
+					<label for="matrixPwd" class="col-sm-3 col-sm-offset-2 form-input-label">{{'新密码'|T:'300203'}}</label>
+					<div class="col-sm-4">
+						<!-- 图形口令输入框 -->
+						<input type="password" class="form-input form-control"
+							id="matrixPwd" name="matrixPwd"
+							data-ng-model="managerInfo.matrixPwd" data-ng-minlength="6" maxlength="32"
+							data-ng-pattern="PATTERN.matrixPwdSe" required>
+							
+						<!-- 图形口令错误提示信息 -->
+						<div >
+							<span class="{{matrixPwdUpdateForm.matrixPwd.$error.required ? 'form-input-error':'form-input-tip'}}">{{'必填'|T:'400001'}}</span>
+							<span class="{{matrixPwdUpdateForm.matrixPwd.$error.minlength ? 'form-input-error':'form-input-tip'}}">{{'长度为6~32'|T:'400904'}}</span>
+							<span class="{{matrixPwdUpdateForm.matrixPwd.$error.pattern ? 'form-input-error':'form-input-tip'}}">{{'格式错误'|T:'400301'}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 图形口令确认 -->
+				<div class="form-group form-item-group">
+					<label for="matrixPwdForSure" class="col-sm-3 col-sm-offset-2 form-input-label">{{'确认密码'|T:'300204'}}</label>
+					<div class="col-sm-4">
+						<!-- 图形口令输入框 -->
+						<input type="password" class="form-input form-control"
+							id="matrixPwdForSure" name="matrixPwdForSure"
+							data-ng-model="managerInfo.matrixPwdForSure" data-ng-minlength="6" maxlength="32"
+							data-ng-pattern="PATTERN.matrixPwdSe" required>
+						<!-- 图形口令错误提示信息 -->
+						<div >
+							<span class="{{matrixPwdUpdateForm.matrixPwdForSure.$error.required ? 'form-input-error':'form-input-tip'}}">{{'必填'|T:'400001'}}</span>
+							<span class="{{matrixPwdUpdateForm.matrixPwdForSure.$error.minlength ? 'form-input-error':'form-input-tip'}}">{{'长度为6~32'|T:'400904'}}</span>
+							<span class="{{matrixPwdUpdateForm.matrixPwdForSure.$error.pattern ? 'form-input-error':'form-input-tip'}}">{{'格式错误'|T:'400301'}}</span>
+						</div>
+					</div>
+				</div>
+					<!-- 按钮 -->
+					<div class="center-block">
+						<!-- 返回按钮 -->
+						<button type="button" class="form-bottom-button btn btn-primary"
+							data-ng-click="go('home.top')">
+							<span class="glyphicon glyphicon-arrow-left"></span>{{'返回'|T:'200015'}}
+						</button>
+						<!-- 确定按钮 -->
+						<button type="button" class="form-bottom-button btn btn-success" 
+							data-ng-disabled="matrixPwdUpdateForm.$invalid  || !matrixPwdUpdateForm.$dirty" data-ng-click="matrixPwdChange()">
+							<span class="glyphicon glyphicon-ok"></span>{{'确定'|T:'200002'}}
+						</button>
+							<!-- 重置按钮 -->
+						<button type="button" class="form-bottom-button btn btn-warning"
+							data-ng-click="reset()">
+							<span class="glyphicon glyphicon-repeat" ></span>{{'重置'|T:'200016'}}
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,114 @@
+<!-- 用户更新页面 -->
+<div class="container-fluid">
+	<!-- 导航栏 -->
+	<div class="row breadcrumbs" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li><i class="glyphicon glyphicon-home"></i> <a
+				href="javaScript:void(0);" data-ng-click="go('home.top')">{{'主页'|T:'300301'}}</a>
+			</li>
+			<li>
+				<a href="javaScript:void(0);" data-ng-click="go('home.userManage')">{{'用户管理'|T:'300401'}}</a></li>
+			<li>{{'编辑用户'|T:'300403'}}</li>
+		</ul>
+	</div>
+	<!-- 内容主体 -->
+	<div class="main-content">
+		<div class="content-panel panel panel-success">
+			<!-- 标题 -->
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="glyphicon glyphicon-edit"></i>{{'编辑用户'|T:'300403'}}</h3>
+			</div>
+			<!-- 编辑内容 -->
+			<div class="panel-body">
+				<!-- 编辑表单 -->
+				<form name="updateForm" class="form-horizontal" role="form"
+					novalidate>
+					<!-- 登录ID -->
+					<div class="form-group form-item-group">
+						<label for="userName" class="col-sm-3 col-sm-offset-2 form-input-label">{{'登录名'|T:'300404'}}</label>
+						<div class="col-sm-4">
+							<!-- 登录ID输入框 -->
+							<input type="text" class="form-input form-control"  id="loginId" name="loginId"  data-ng-model="userInfo.loginId"  disabled="disabled">
+						</div>
+					</div>
+					<!-- 用户名 -->
+					<div class="form-group form-item-group">
+						<label for="userName" class="col-sm-3 col-sm-offset-2 form-input-label">{{'用户名'|T:'300405'}}</label>
+						<div class="col-sm-4">
+							<!-- 用户名输入框 -->
+							<input type="text" class="form-input form-control"  id="userName" name="userName" maxlength="32"
+								data-ng-model="userInfo.userName" required>
+							<!-- 用户名错误提示信息 -->
+							<div>
+								<span class="{{updateForm.userName.$error.required ? 'form-input-error':'form-input-tip'}}">{{'必填'|T:'400001'}}</span>
+							</div>
+						</div>
+					</div>
+					<!-- 电话号码 -->
+					<div class="form-group form-item-group">
+						<label for="phoneNumber" class="col-sm-3 col-sm-offset-2 form-input-label">{{'电话号码'|T:'300406'}}</label>
+						<div class="col-sm-4">
+								<!-- 手机号输入框 -->
+								<input type="text" class="form-input form-control"  id="userPhone"  name="userPhone"  maxlength="11"
+									data-ng-model="userInfo.userPhone"   data-ng-pattern="PATTERN.phone" required>
+								<!-- 手机号错误提示信息 -->
+								<div>
+									<span class="{{updateForm.userPhone.$error.required ? 'form-input-error':'form-input-tip'}}">{{'必填'|T:'400001'}}</span>
+									<span class="{{updateForm.userPhone.$error.pattern ? 'form-input-error':'form-input-tip'}}">{{'半角，数字'|T:'400304'}}</span>
+								</div>
+						</div>
+					</div>
+					<!-- 电子邮件 -->
+					<div class="form-group form-item-group">
+						<label for="mailAddress" class="col-sm-3 col-sm-offset-2 form-input-label">{{'电子邮件'|T:'300407'}}</label>
+						<div class="col-sm-4">
+							<!-- 电子邮件输入框 -->
+							<input type="text" class="form-input form-control" id="mail" name="mail" maxlength="32"
+								data-ng-model="userInfo.mail"  data-ng-pattern="PATTERN.mail"  >
+							<!-- 电子邮件错误提示信息 -->
+							<div>
+								<span class="{{updateForm.mail.$error.pattern ? 'form-input-error':'form-input-tip'}}">{{'半角，英文，数字，特殊字符可包括 _ - .@'|T:'400309'}}</span>
+							</div>
+						</div>
+					</div>
+					<!-- 用户角色 -->
+					<div class="form-group form-item-group">
+						<label for="roleId" class="col-sm-3 col-sm-offset-2 form-input-label">{{'角色名称'|T:'300408'}}</label>
+						<div class="col-sm-4">
+							<!-- 角色下拉框 -->
+							<select class="form-input form-control" data-ng-model="userInfo.roleId" data-ng-options="(x.key)*1 as x.value for x in roleDropDown">
+							</select>
+							<!-- 角色错误提示信息 -->
+							<div>
+								<span class="{{userInfo.roleId ? 'form-input-tip':'form-input-error'}}">{{'必填'|T:'400001'}}</span>
+							</div>
+						</div>
+					</div>
+					<!-- 按钮 -->
+					<div class="center-block">
+						<!-- 返回按钮 -->
+						<button type="button" class="form-bottom-button btn btn-primary"
+							data-ng-click="go('home.userManage')">
+							<span class="glyphicon glyphicon-arrow-left"></span>{{'返回'|T:'200015'}}
+						</button>
+						<!-- 确定按钮 -->
+						<button type="button" class="form-bottom-button btn btn-success" 
+							data-ng-disabled="updateForm.$invalid  || !updateForm.$dirty || !userInfo.roleId" data-ng-click="update()" data-ng-if="operationCheck('UPDATE_USER')">
+							<span class="glyphicon glyphicon-ok"></span>{{'确定'|T:'200002'}}
+						</button>
+							<!-- 重置按钮 -->
+						<button type="button" class="form-bottom-button btn btn-warning"
+							data-ng-click="reset()">
+							<span class="glyphicon glyphicon-repeat" ></span>{{'重置'|T:'200016'}}
+						</button>
+							<!-- 重置按钮 -->
+						<button type="button" class="form-bottom-button btn btn-warning"
+							data-ng-click="resetPwssword()">
+							<span class="glyphicon glyphicon-repeat" ></span>{{'重置密码'|T:'200022'}}
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

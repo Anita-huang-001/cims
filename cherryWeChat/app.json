@@ -1,0 +1,17 @@
+{
+  "pages":[
+
+    "pages/index/index",
+    "pages/changePwd/changePwd",
+    "pages/role/role",
+    "pages/manager/manager"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "樱桃进销存流程管控系统",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

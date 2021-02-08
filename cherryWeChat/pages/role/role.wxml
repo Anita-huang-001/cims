@@ -1,0 +1,12 @@
+<view class="content">
+  <radio-group bindchange="selectRole">
+    <label wx:for="{{roleList}}" wx:key="index">
+      <view class="content_radio">
+        <radio value="{{item.roleId}}"></radio>{{item.roleName}}
+      </view>
+    </label>
+  </radio-group>
+</view>
+<view class="goRole">
+  <button class="goRole_button" bindtap="goRole">选择角色</button>
+</view>

@@ -1,0 +1,77 @@
+1607309332113	Rename package 'com.mi.cims.mi_cims_admin'
+1607318299659	Copy source folder
+1607318415088	Copy file
+1607318470215	Rename type 'App'
+1607318912952	Rename package 'com.mi.cims.controller'
+1607319196935	Rename package 'controller'
+1607319280026	Delete element
+1607319324729	Delete element
+1607319341021	Delete element
+1607319358122	Delete element
+1607321118700	Move source folder
+1607321144372	Delete element
+1607321286758	Rename package 'com.mi.cims.controller'
+1607321345043	Delete element
+1607321347675	Delete element
+1607321358459	Delete element
+1607321448106	Delete element
+1607321501334	Delete element
+1607321505052	Delete element
+1607329625925	Rename package 'com.mi.cims.bo'
+1607329645682	Rename package 'com.mi.cims.bean.bo'
+1607332158345	Rename compilation unit 'aaa.java'
+1607332452209	Rename compilation unit 'aaa.java'
+1607332655328	Rename resource 'NewFile.xml'
+1607332736042	Rename compilation unit 'aaa.java'
+1607332884966	Delete element
+1607332935432	Rename compilation unit 'aaa.java'
+1607333106911	Rename compilation unit 'aaa.java'
+1607333959508	Rename compilation unit 'aaa.java'
+1607394939693	Encapsulate field 'sucCode'
+1607394944133	Encapsulate field 'sucMessage'
+1607396963259	Encapsulate field 'userId'
+1607396967364	Encapsulate field 'loginId'
+1607396971055	Encapsulate field 'passWord'
+1607396975608	Encapsulate field 'roleId'
+1607396979330	Encapsulate field 'phoneNum'
+1607396983794	Encapsulate field 'name'
+1607396987718	Encapsulate field 'mail'
+1607396991152	Encapsulate field 'deleteFlag'
+1607396995264	Encapsulate field 'createTime'
+1607396999109	Encapsulate field 'createId'
+1607397003140	Encapsulate field 'updateTime'
+1607397006741	Encapsulate field 'updateId'
+1607406283313	Delete elements
+1607406324379	Delete elements
+1607406344067	Delete elements
+1607406354761	Delete elements
+1607406442704	Delete elements
+1607406512914	Delete elements
+1607406549555	Delete elements
+1607406571613	Delete elements
+1607406597463	Delete element
+1607406631307	Delete elements
+1607406643608	Delete elements
+1607406712228	Delete elements
+1607406722050	Delete elements
+1607406739340	Delete elements
+1607406764652	Delete elements
+1607406780384	Delete element
+1607419763663	Rename type 'HomeService'
+1607419801273	Rename type 'UserService'
+1607419857089	Rename compilation unit 'UserInfoService.java'
+1607480617865	Rename type 'ExcelTemplateUtils'
+1607481183505	Rename type 'PageResultVo'
+1607481276253	Rename type 'DropDownVo'
+1607483469493	Rename package 'com.mi.cims.mi_cims_admin'
+1607483507129	Move source folder
+1607483644810	Move source folder
+1607484038284	Copy package
+1607490768325	Copy folder
+1607492301961	Copy package
+1607492318360	Copy packages
+1607492383726	Copy package
+1607492462239	Copy package
+1607492565308	Copy package
+1607493036850	Copy package
+1607493050983	Copy package

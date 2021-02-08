@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.cims.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mi.cims.bean.po.UserInfo">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />  
+    <result column="LOGIN_ID" jdbcType="VARCHAR" property="loginId" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="passWord" />  
+    <result column="PHONE_NUM" jdbcType="VARCHAR" property="phoneNum" />     
+    <result column="NAME" jdbcType="VARCHAR" property="name" /> 
+    <result column="MAIL" jdbcType="VARCHAR" property="mail" /> 
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />    
+    <result column="CREATE_TIME" jdbcType="BIGINT" property="createTime" />  
+    <result column="CREATE_ID" jdbcType="INTEGER" property="createId" /> 
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />     
+    <result column="UPDATE_ID" jdbcType="INTEGER" property="updateId" />
+    <result column="LOGIN_TIME" jdbcType="BIGINT" property="loginTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, LOGIN_ID, PASSWORD, PHONE_NUM, NAME, MAIL, DELETE_FLAG, CREATE_TIME, CREATE_ID, UPDATE_TIME, UPDATE_ID, LOGIN_TIME
+  </sql>
+  <!-- 查询用户是否存在 -->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where USER_ID = #{userId,jdbcType=VARCHAR} and DELETE_FLAG = 0
+  </select>
+  
+  <!-- 查询用户是否存在 -->
+  <select id="selectByLoginId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where LOGIN_ID = #{loginId,jdbcType=VARCHAR} and DELETE_FLAG = 0
+  </select>
+  
+  <!-- 分页查询用户信息 -->
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from user_info
+    where DELETE_FLAG = 0
+  </select>
+  
+  <!-- 新建用户信息 -->
+  <insert id="insert" parameterType="com.mi.cims.bean.po.UserInfo">
+    insert into user_info (LOGIN_ID, PASSWORD, PHONE_NUM, NAME, MAIL, DELETE_FLAG, CREATE_TIME, CREATE_ID)
+    values (#{loginId,jdbcType=VARCHAR},#{passWord,jdbcType=BIGINT},#{phoneNum,jdbcType=BIGINT},#{name,jdbcType=INTEGER},
+			#{mail,jdbcType=INTEGER},#{deleteFlag,jdbcType=INTEGER},#{createTime,jdbcType=BIGINT},#{createId,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 更新用户信息 -->
+  <update id="update" parameterType="com.mi.cims.bean.po.UserInfo">
+    update user_info
+    <set>
+      <if test="loginId != null">
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        PASSWORD = #{passWord,jdbcType=BIGINT},
+      </if>
+      <if test="phoneNum != null">
+        PHONE_NUM = #{phoneNum,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=INTEGER},
+      </if>
+      <if test="mail != null">
+        MAIL = #{mail,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null">
+        UPDATE_ID = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="LOGIN_TIME != null">
+        LOGIN_TIME = #{loginTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改用户登录密码 -->
+  <update id="resetPwd" parameterType="com.mi.cims.bean.po.UserInfo">
+    update user_info
+    <set>
+      <if test="passWord != null and passWord != ''">
+        PASSWORD = #{passWord,jdbcType=BIGINT},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 更新用户信息 -->
+  <update id="updateLoginTime">
+    update user_info
+    <set>
+        LOGIN_TIME = #{loginTime,jdbcType=BIGINT}
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

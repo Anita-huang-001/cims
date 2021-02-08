@@ -1,0 +1,61 @@
+<!-- 登录页面 -->
+<div style = "backgroundcolor: red">
+
+<div class="container-fluid login-page">
+	<!-- 标题 -->
+	<div class="row login-title text-center">
+		<!-- 公司logo图片 --> 
+		<!-- <img alt="logo" src="image/logo.png">  -->
+		<!-- 系统名称 -->
+		<label class="login-title-label">{{'樱桃进销存流程管控系统'|T:'000001'}}</label>
+	</div>
+	<div class="row col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+		<div class="login-form">
+			<!-- 登录表单 -->
+			<form name="loginForm" class="form-horizontal" role="form"  novalidate>
+				<!-- 用户名 -->
+				<div class="form-group form-item-group">
+					<label for="managerId" class="col-sm-3 form-input-label">{{'登录名'}}</label>
+					<div class="col-sm-9">
+						<!-- 用户名输入框 -->
+						<input type="text" class="form-input form-control" 
+							id="managerId" name="managerId" data-ng-model="loginInfo.managerId" 
+							maxlength="32" data-ng-pattern="PATTERN.managerName" required autofocus>
+						<!-- 用户名错误提示信息 -->
+						<div data-ng-if="loginForm.managerId.$dirty">
+							<span class="form-input-error" data-ng-show="loginForm.managerId.$error.required">{{'必填'}}</span>
+							<span class="form-input-error" data-ng-show="loginForm.managerId.$error.pattern">{{'格式错误'}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 用户密码 -->
+				<div class="form-group form-item-group">
+					<label for="managerPwd" class="col-sm-3 form-input-label">{{'登录密码'}}</label>
+					<div class="col-sm-9">
+						<!-- 用户名输入框 -->
+						<input type="password" class="form-input form-control" data-ng-keyup="managerPwdKeyup($event)"
+							id="managerPwd" name="managerPwd" data-ng-model="loginInfo.managerPwd" 
+							data-ng-minlength="6"  maxlength="32" data-ng-pattern="PATTERN.managerPwd" required>
+						<!-- 用户名错误提示信息 -->
+						<div data-ng-if="loginForm.managerId.$dirty">
+						<span class="form-input-error" data-ng-show="loginForm.managerPwd.$error.required">{{'必填'}}</span>
+						<span class="form-input-error" data-ng-show="loginForm.managerPwd.$error.pattern">{{'格式错误'}}</span>
+						<span class="form-input-error" data-ng-show="loginForm.managerPwd.$error.minlength">{{'最少6位'}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group form-item-group">
+					<div class="col-sm-4 col-sm-offset-4">
+						<!-- 登录按钮 -->
+						<button type="button" id="loginBtn" class="form-bottom-button btn btn-success "
+							data-ng-disabled="loginForm.$invalid" data-ng-click="login()">
+							<span class="glyphicon glyphicon-log-in"></span>{{'登录'}}
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</div>

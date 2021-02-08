@@ -1,0 +1,29 @@
+/* 阵列表中元素样式 */
+.table-mi-matrix img {
+    /* 元素宽度 */
+    width: 34px;
+    /* 元素高度 */
+    height: 34px;
+}
+
+/* 阵列表中元素样式 */
+.table-mi-matrix td {
+    /* 元素上间距 */
+    padding-top: 1px;
+    /* 元素下间距 */
+    padding-bottom: 1px;
+    /* 元素左间距 */
+    padding-left: 1px;
+    /* 元素右间距 */
+    padding-right: 1px;
+}
+
+/* 子阵列表间水平间距 */
+.table-mi-sub-matrix-space-h {
+	width: 5px;
+}
+
+/* 子阵列表间垂直间距 */
+.table-mi-sub-matrix-space-v {
+	height: 5px;
+}

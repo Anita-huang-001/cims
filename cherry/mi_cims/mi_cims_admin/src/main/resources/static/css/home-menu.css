@@ -1,0 +1,90 @@
+/* 左侧菜单 */
+#sidebar {
+    width: 210px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 60px;
+    z-index: 99;
+}
+
+/* 左侧菜单剩余部分 */
+#sidebar:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 210px;
+  background: #e0e4e6;
+  border-right: 1px solid #c8cfd4;
+  z-index: -1;
+}
+
+/* 菜单内容部分 */
+#sidebar .sidebar-inner {
+    position: relative;
+    width: auto;
+    height: 100%;
+}
+
+/* 菜单列表 */
+#sidebar #sideNav li {
+    float: left;
+    width: 100%;
+    margin-top: 0;
+    border-right: 1px solid #c8cfd4;
+    border-bottom: 1px solid #c8cfd4;
+}
+
+/* 菜单列表中内容 */
+#sidebar #sideNav li a {
+    padding: 15px;
+    position: relative;
+    color: #3a3e42;
+    height: 50px;
+    border-radius: 0;
+    background: #e0e4e6;
+    -webkit-transition: background;
+    transition: background;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+/* 父菜单中显示隐藏图标 */
+#sidebar #sideNav .collapse-icon {
+	position: absolute;
+    left: 180px;
+    padding-top: 17px;
+}
+
+/* 菜单列表中图标内容 */
+#sidebar #sideNav li a i {
+	font-size: 15px;
+    padding-right: 10px;
+}
+
+/* 鼠标浮动在一级菜单上时 */
+#sidebar #sideNav li a:hover {
+    background: #c9cece;
+}
+
+/* 二级菜单列表 */
+#sidebar #sideNav li .sub {
+    /*display: none;*/
+    margin-right: -1px;
+}
+
+/* 一级菜单列表中内容 */
+#sidebar #sideNav li .sub a {
+    background: #e0e4e6;
+    padding-left: 40px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+/* 鼠标浮动在二级菜单选项上时 */
+#sidebar #sideNav li .sub a:hover {
+    background: #c9cece;
+}

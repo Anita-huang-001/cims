@@ -1,0 +1,36 @@
+/* 对话框头部 */
+.modal-dialog-header {
+	padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 对话框标题文字 */
+.modal-dialog-title {
+	color: #4775ef;
+    font-family: 'Droid Sans';
+    font-size: 20px;
+}
+
+/* 对话框标题中部 */
+.modal-dialog-body {
+	position: relative;
+    padding: 15px;
+	text-align:center;
+	font-size:15px;
+    font-family: 'Droid Sans';
+}
+
+/* 对话框标题中部文字 */
+.modal-dialog-content {
+	text-align: center;
+    font-size: 15px;
+    font-family: 'Droid Sans';
+    white-space: pre-line;
+}
+
+/* 对话框标题底部 */
+.modal-dialog-footer {
+	padding: 10px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}

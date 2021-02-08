@@ -1,0 +1,556 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mi.cims</groupId>
+		<artifactId>mi-cims</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>mi-cims-client</artifactId>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<!-- 项目编译后名称 -->
+		<project.build.name>mi_client</project.build.name>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+	</properties>
+	
+	<repositories>
+	    <repository>
+	        <id>jitpack.io</id>
+	        <url>https://jitpack.io</url>
+	    </repository>
+	</repositories>
+	
+	<dependencies>
+		<!-- 全栈式Web开发模块，包括Tomcat和spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- aop切面处理模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Apache基础类型封装处理模块 -->
+		<dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<!-- 健康检查模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- redis支持模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!-- druid数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<!-- mybatis依赖模块 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<!-- mybatis分页依赖模块 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>${pagehelper.version}</version>
+		</dependency>
+		<!-- mysql依赖模块 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		</dependency>
+		<!-- json转化包依赖模块 -->
+		<dependency>  
+           <groupId>com.alibaba</groupId>  
+           <artifactId>fastjson</artifactId>
+           <version>${fastjson.verson}</version>
+     	</dependency>
+     	<!-- webservice依赖模块 -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+			<version>${cxf.verson}</version>
+		</dependency>
+		<!-- netty模块 -->
+		<dependency>
+			<groupId>com.corundumstudio.socketio</groupId>
+			<artifactId>netty-socketio</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<!-- jna依赖模块 -->
+		<dependency>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna</artifactId>
+		</dependency>
+		<!-- socket模块 -->
+		<dependency>
+			<groupId>io.socket</groupId>
+			<artifactId>socket.io-client</artifactId>
+			<version>${socket.io.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.Ryan-Miao</groupId>
+		    <artifactId>mongo-page-helper</artifactId>
+		    <version>1.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- 工程打包文件名 -->
+		<finalName>${project.build.name}</finalName>
+		<resources>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.xml</include>
+						</includes>
+						<!-- 是否替换资源中的属性 -->
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/**</include>
+						</includes>
+					</resource>
+				</resources>
+		<!-- 编译插件 -->
+		<plugins>
+			<!-- spring boot在maven模式的打包插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- 创建可执行jar -->
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+			<!-- jar打包配置 -->
+			<plugin> 
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-jar-plugin</artifactId> 
+                <version>${jar.plugin.version}</version> 
+                <configuration>
+                	<!-- 排除不打入jar包的文件 -->
+                    <excludes>
+                        <exclude>setup/**</exclude> 
+                        <exclude>application.properties</exclude> 
+                        <exclude>libmi_gm_core_soft.so</exclude> 
+                        <exclude>mi_gm_core_soft.dll</exclude> 
+                    </excludes> 
+                </configuration> 
+            </plugin>
+			
+			<!-- mybatis自动生成Model、Mapper插件 -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis.generator.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql.connector.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!--允许移动生成的文件 -->
+					<verbose>true</verbose>
+					<!-- 是否覆盖 -->
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<!-- 认证api打包配置文件 -->
+		<profile>
+			<!-- 配置文件名 -->
+		    <id>mi_auth</id>
+		    <!-- 属性配置 -->
+		    <properties>
+		    	<!-- 跳过测试文件 -->
+            	<maven.test.skip>true</maven.test.skip>
+            	<!-- JDK版本 -->
+				<java.version>1.8</java.version>
+				<!-- 编码 -->
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        	</properties>
+			<!-- 编译配置 -->
+		    <build>
+				<!-- 工程打包文件名 -->
+				<finalName>mi_auth</finalName>
+				<!-- 包含mybatis的xml文件 -->
+				<resources>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.xml</include>
+						</includes>
+						<!-- 是否替换资源中的属性 -->
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/**</include>
+						</includes>
+					</resource>
+				</resources>
+				<!-- 编译插件 -->
+				<plugins>
+					<!-- spring boot在maven模式的打包插件 -->
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<!-- 创建可执行jar -->
+						<configuration>
+							<executable>true</executable>
+						</configuration>
+					</plugin>
+					<!-- jar打包配置 -->
+					<plugin> 
+		                <groupId>org.apache.maven.plugins</groupId> 
+		                <artifactId>maven-jar-plugin</artifactId> 
+		                <version>${jar.plugin.version}</version> 
+		                <configuration>
+		                	<!-- 排除不打入jar包的文件 -->
+		                    <excludes>
+		                    	<!-- 排除radius控制器类文件 -->
+		                    	<exclude>com/mi/gm/controller/AuthRadiusController.class</exclude>
+		                    	<!-- 排除结合测试安装脚本文件 -->
+		                        <exclude>setup/**</exclude>
+		                        <!-- 排除radius配置文件 -->
+		                        <exclude>mi_radius_api/**</exclude>
+		                        <!-- 排除资源文件 -->
+		                        <exclude>application.properties</exclude>
+		                        <exclude>libmi_gm_core_soft.so</exclude> 
+		                        <exclude>mi_gm_core_soft.dll</exclude>
+		                    </excludes>
+		                </configuration> 
+		            </plugin>
+		            <!-- ant插件 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${antrun.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>default_cli</id>
+								<!-- 生命周期：集成测试 -->
+		                        <phase>integration-test</phase>
+		                        <!-- 目标 -->
+								<goals>
+						        	<goal>run</goal>
+						        </goals>
+								<configuration>
+									<target>
+										<!-- 部署服务器IP -->
+										<property name="server_ip" value="192.168.160.249" />
+										<!-- 部署服务器登录用户名 -->
+										<property name="server_username" value="root" />
+										<!-- 部署服务器登录密码 -->
+										<property name="server_pwd" value="magicimage" />
+										
+										<!-- 安装路径 -->
+										<property name="file_setup_path" value="/root/mi-setup" />
+										<!-- SCP文件上传基础路径 -->
+										<property name="scp_base_path" value="${server_username}:${server_pwd}@${server_ip}:" />
+										<!-- 本工程资源路径 -->
+										<property name="project_resource_path" value="${basedir}/src/main/resources" />
+										<!-- installer工程资源路径 -->
+										<property name="installer_project_resource_path" value="${basedir}/../mi-gm-soft-installer/src/main/resources" />
+										
+										<echo message="复制认证系统文件..." />
+										<!-- 复制认证系统jar文件 -->
+										<copy file="${project.build.directory}/mi_auth.jar"
+		 									tofile="${installer_project_resource_path}/mi_installer/system/mi_auth/mi_auth.jar" overwrite="true"/>
+										<!-- 复制认证系统属性文件 -->
+										<!-- <copy file="${project_resource_path}/application.properties"
+		 									tofile="${installer_project_resource_path}/mi_installer/system/mi_auth/application.properties" overwrite="true"/> -->
+		 								<!-- 复制秘阵核心库文件 -->
+										<copy file="${project_resource_path}/libmi_gm_core_soft.so"
+		 									tofile="${installer_project_resource_path}/mi_installer/lib/libmi_gm_core_soft.so" overwrite="true"/>
+										
+										<echo message="创建安装目录..." />
+										<!-- 创建安装目录 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="rm -rf ${file_setup_path}; mkdir -p ${file_setup_path}/config ${file_setup_path}/lib ${file_setup_path}/shell ${file_setup_path}/system;" />
+										
+										<echo message="开始上传文件..." />
+										<!-- 上传config文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/config" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/config"/>
+										</scp>
+										<!-- 上传lib文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/lib" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/lib"/>
+										</scp>
+										<!-- 上传shell文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/shell" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/shell"/>
+										</scp>
+										<!-- 上传system文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/system" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/system"/>
+										</scp>
+										<!-- 上传安装脚本 -->
+										<scp todir="${scp_base_path}/${file_setup_path}" file="${installer_project_resource_path}/mi_installer/mi_installer.sh" trust="true" />
+										
+										<echo message="部署秘阵管理项目..." />
+										<!-- 执行安装脚本 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="/bin/bash ${file_setup_path}/mi_installer.sh install mi_admin" />
+											
+										<echo message="部署秘阵认证项目..." />
+										<!-- 执行安装脚本 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="/bin/bash ${file_setup_path}/mi_installer.sh install mi_auth" />
+											
+										<echo message="启动秘阵管理服务..." />
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="service mi_admin start" />
+											
+										<echo message="启动秘阵认证服务..." />
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="service mi_auth start" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<!-- ant对SSH2支持依赖库 -->
+		                    <dependency>
+							    <groupId>org.apache.ant</groupId>
+							    <artifactId>ant-jsch</artifactId>
+							    <version>${ant.jsch.version}</version>
+							</dependency>
+		                    <!-- SSH2依赖库 -->
+		                    <dependency> 
+		                        <groupId>com.jcraft</groupId> 
+		                        <artifactId>jsch</artifactId> 
+		                        <version>${jsch.version}</version> 
+		                    </dependency> 
+		                </dependencies> 
+					</plugin>
+		    	</plugins>
+			</build>
+		</profile>
+		
+		<!-- radis打包配置文件 -->
+		<profile>
+			<!-- 配置文件名 -->
+		    <id>mi_radius_api</id>
+		    <!-- 属性配置 -->
+		    <properties>
+		    	<!-- 跳过测试文件 -->
+            	<maven.test.skip>true</maven.test.skip>
+				<!-- JDK版本 -->
+				<java.version>1.8</java.version>
+				<!-- 编码 -->
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        	</properties>
+			<!-- 编译配置 -->
+		    <build>
+				<!-- 工程打包文件名 -->
+				<finalName>mi_radius_api</finalName>
+				<!-- 包含mybatis的xml文件 -->
+				<resources>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.xml</include>
+						</includes>
+						<!-- 是否替换资源中的属性 -->
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/**</include>
+						</includes>
+					</resource>
+				</resources>
+				<!-- 编译插件 -->
+				<plugins>
+					<!-- spring boot在maven模式的打包插件 -->
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<!-- 创建可执行jar -->
+						<configuration>
+							<executable>true</executable>
+						</configuration>
+					</plugin>
+					<!-- jar打包配置 -->
+					<plugin> 
+		                <groupId>org.apache.maven.plugins</groupId> 
+		                <artifactId>maven-jar-plugin</artifactId> 
+		                <version>${jar.plugin.version}</version> 
+		                <configuration>
+		                	<!-- 排除不打入jar包的文件 -->
+		                    <excludes>
+		                    	<!-- 排除api接口类文件 -->
+		                    	<exclude>com/mi/gm/controller/AuthController.class</exclude>
+		                    	<exclude>com/mi/gm/configuration/MiSocketServerConfig.class</exclude>
+		                    	<exclude>com/mi/gm/configuration/MiWebServiceConfig.class</exclude>
+		                    	<exclude>com/mi/gm/configuration/NettyServerConfig.class</exclude>
+		                    	<exclude>com/mi/gm/rpcservice/**</exclude>
+		                    	<exclude>com/mi/gm/webservice/**</exclude>
+		                    	<exclude>com/mi/gm/server/**</exclude>
+		                    	<!-- 排除结合测试安装脚本文件 -->
+		                        <exclude>setup/**</exclude>
+		                        <!-- 排除radius配置文件 -->
+		                        <exclude>mi_radius_api/**</exclude>
+		                        <!-- 排除资源文件 -->
+		                        <exclude>application.properties</exclude>
+		                        <exclude>logback-spring.xml</exclude>
+		                        <exclude>libmi_gm_core_soft.so</exclude> 
+		                        <exclude>mi_gm_core_soft.dll</exclude>
+		                    </excludes>
+		                </configuration> 
+		            </plugin>
+		            <!-- ant插件 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${antrun.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>default_cli</id>
+								<!-- 生命周期：集成测试 -->
+		                        <phase>integration-test</phase>
+		                        <!-- 目标 -->
+								<goals>
+						        	<goal>run</goal>
+						        </goals>
+								<configuration>
+									<target>
+										<!-- 部署服务器IP -->
+										<property name="server_ip" value="192.168.160.249" />
+										<!-- 部署服务器登录用户名 -->
+										<property name="server_username" value="root" />
+										<!-- 部署服务器登录密码 -->
+										<property name="server_pwd" value="magicimage" />
+										
+										<!-- 安装路径 -->
+										<property name="file_setup_path" value="/root/mi-setup" />
+										<!-- SCP文件上传基础路径 -->
+										<property name="scp_base_path" value="${server_username}:${server_pwd}@${server_ip}:" />
+										<!-- 本工程资源路径 -->
+										<property name="project_resource_path" value="${basedir}/src/main/resources" />
+										<!-- installer工程资源路径 -->
+										<property name="installer_project_resource_path" value="${basedir}/../mi-gm-soft-installer/src/main/resources" />
+										
+										<echo message="复制认证系统文件..." />
+										<!-- 复制认证系统jar文件 -->
+										<copy file="${project.build.directory}/mi_radius_api.jar"
+		 									tofile="${installer_project_resource_path}/mi_installer/system/mi_radius_api/mi_radius_api.jar" overwrite="true"/>
+										<!-- 复制认证系统属性文件 -->
+										<!--<copy file="${project_resource_path}/mi_radius_api/application.properties"
+		 									tofile="${installer_project_resource_path}/mi_installer/system/mi_radius_api/application.properties" overwrite="true"/>-->
+										<!-- 复制认证系统日志属性文件 -->
+										<copy file="${project_resource_path}/mi_radius_api/logback-spring.xml"
+		 									tofile="${installer_project_resource_path}/mi_installer/system/mi_radius_api/logback-spring.xml" overwrite="true"/>
+		 								<!-- 复制秘阵核心库文件 -->
+										<copy file="${project_resource_path}/libmi_gm_core_soft.so"
+		 									tofile="${installer_project_resource_path}/mi_installer/lib/libmi_gm_core_soft.so" overwrite="true"/>
+										
+										<echo message="创建安装目录..." />
+										<!-- 创建安装目录 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="rm -rf ${file_setup_path}; mkdir -p ${file_setup_path}/config ${file_setup_path}/lib ${file_setup_path}/shell ${file_setup_path}/system;" />
+										
+										<echo message="开始上传文件..." />
+										<!-- 上传config文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/config" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/config"/>
+										</scp>
+										<!-- 上传lib文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/lib" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/lib"/>
+										</scp>
+										<!-- 上传shell文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/shell" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/shell"/>
+										</scp>
+										<!-- 上传system文件夹 -->
+										<scp todir="${scp_base_path}/${file_setup_path}/system" trust="true">
+											<fileset dir="${installer_project_resource_path}/mi_installer/system"/>
+										</scp>
+										<!-- 上传安装脚本 -->
+										<scp todir="${scp_base_path}/${file_setup_path}" file="${installer_project_resource_path}/mi_installer/mi_installer.sh" trust="true" />
+										
+										<echo message="部署秘阵管理项目..." />
+										<!-- 执行安装脚本 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="/bin/bash ${file_setup_path}/mi_installer.sh install mi_admin" />
+											
+										<echo message="部署mi_radius_api项目..." />
+										<!-- 执行安装脚本 -->
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="/bin/bash ${file_setup_path}/mi_installer.sh install mi_radius_api" />
+											
+										<echo message="启动秘阵管理服务..." />
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="service mi_admin start" />
+											
+										<echo message="启动mi_radius_api服务..." />
+										<sshexec host="${server_ip}" username="${server_username}" password="${server_pwd}" trust="true"
+											command="service mi_radius_api start" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<!-- ant对SSH2支持依赖库 -->
+		                    <dependency>
+							    <groupId>org.apache.ant</groupId>
+							    <artifactId>ant-jsch</artifactId>
+							    <version>${ant.jsch.version}</version>
+							</dependency>
+		                    <!-- SSH2依赖库 -->
+		                    <dependency> 
+		                        <groupId>com.jcraft</groupId> 
+		                        <artifactId>jsch</artifactId> 
+		                        <version>${jsch.version}</version> 
+		                    </dependency> 
+		                </dependencies> 
+					</plugin>
+		    	</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

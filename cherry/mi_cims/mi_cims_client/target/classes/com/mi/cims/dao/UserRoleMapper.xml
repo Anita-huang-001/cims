@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.cims.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.mi.cims.bean.po.UserRole">
+  	<id column="USER_ROLE_ID" jdbcType="INTEGER" property="userRoleId" />
+  	<result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ROLE_ID, USER_ID, ROLE_ID, DELETE_FLAG
+  </sql>
+  <!-- 根据用户ID查询所拥有的角色 -->
+  <select id="selectRoleByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where USER_ID = #{userId,jdbcType=INTEGER} and DELETE_FLAG = 0
+  </select>
+
+</mapper>

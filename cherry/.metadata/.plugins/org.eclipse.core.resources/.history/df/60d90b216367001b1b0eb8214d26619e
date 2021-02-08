@@ -1,0 +1,219 @@
+package com.mi.cims.service.impl;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.mi.cims.bean.bo.userInfo.AddUserInfoBo;
+import com.mi.cims.bean.bo.userInfo.GetUserInfoBo;
+import com.mi.cims.bean.bo.userInfo.UpdateUserInfoBo;
+import com.mi.cims.bean.po.UserInfo;
+import com.mi.cims.bean.po.UserRole;
+import com.mi.cims.bean.pojo.LoginedManager;
+import com.mi.cims.bean.vo.UserInfoVo;
+import com.mi.cims.constant.ErrorCode;
+import com.mi.cims.dao.UserInfoMapper;
+import com.mi.cims.dao.UserRoleMapper;
+import com.mi.cims.exception.BusinessException;
+import com.mi.cims.service.RedisService;
+import com.mi.cims.service.UserInfoService;
+import com.mi.cims.util.CacheUtils;
+import com.mi.cims.util.security.MD5Utils;
+import com.mi.cims.util.security.SHA256Utils;
+
+@Service
+public class UserInfoServiceImpl implements UserInfoService {
+	
+    // redis服务
+    @Autowired
+    private RedisService redisService;
+	
+    // 用户信息
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    
+    // 用户相应的角色信息
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    
+	// 分页中每页数据数量
+	@Value("${pagination.page.size}")
+	private int pageSize;
+	
+	// 新建用户的默认密码
+	@Value("${default.user.pwd}")
+	private String defaultUserPwd;
+    
+    /**   
+     * @Title: getUserInfo
+     * @Description: 分页查询用户信息
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  getUserInfoBo 查询条件
+     * @param:  pageNum		       当前页码
+     * @param:  request		       请求信息
+     * @return: PageInfo 	       分页列表
+     * @throws: Exception
+     */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public PageInfo getUserInfo(GetUserInfoBo getUserInfoBo, int pageNum, HttpServletRequest request) throws Exception {
+		// 设置分页数据
+		PageHelper.startPage(pageNum, pageSize);
+		// 返回到画面的结果集
+		List<UserInfoVo> userInfoVoList = userInfoMapper.selectByCondittion(getUserInfoBo);
+		// 返回分页信息
+		return new PageInfo(userInfoVoList);
+	}
+	
+    /**   
+     * @Title: addUserInfo
+     * @Description: 新建用户信息
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  getUserInfoBo 新建信息
+     * @param:  request		       请求信息
+     * @throws: Exception
+     */
+	// 事务管理，一个数据库操作出错全部回滚
+	@Transactional(rollbackFor = Exception.class)
+	public void addUserInfo(AddUserInfoBo addUserInfoBo, HttpServletRequest request) throws Exception {
+		// 判断登录名是否已经存在
+		UserInfo userInfoAlready = userInfoMapper.selectByLoginId(addUserInfoBo.getLoginId());
+		// 已经存在返回提示信息
+		if(userInfoAlready != null) {
+			throw new BusinessException(ErrorCode.ACCT_ALREADY_EXIST);
+		}
+        // 取得已登录管理员角色ID
+        LoginedManager loginedManager = CacheUtils.getLoginedManager(redisService, request);
+		UserInfo userInfo = new UserInfo();
+		// 属性拷贝
+		BeanUtils.copyProperties(addUserInfoBo, userInfo);
+		// 添加用户必要信息
+		userInfo.setPassWord(MD5Utils.md5Encode(SHA256Utils.sha256Encode(MD5Utils.md5Encode(defaultUserPwd))));
+		userInfo.setDeleteFlag("0");
+		userInfo.setCreateTime(System.currentTimeMillis());
+		userInfo.setCreateId(loginedManager.getId());
+		// 新建用户信息
+		userInfoMapper.insert(userInfo);
+		// 取得新建用户的信息
+		userInfo = userInfoMapper.selectByLoginId(addUserInfoBo.getLoginId());
+		// 创建用户权限实体
+		UserRole userRole = new UserRole();
+		// 添加用户权限关联信息
+		userRole.setUserId(userInfo.getUserId());
+		userRole.setRoleId(Integer.parseInt(addUserInfoBo.getRoleId()));
+		userRole.setDeleteFlag("0");
+		// 新建用户权限关联
+		userRoleMapper.insert(userRole);
+	}
+	
+    /**   
+     * @Title: selectUserInfo
+     * @Description: 根据用户ID查询用户信息
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  userId 		用户ID
+     * @return: UserInfoVo  用户详细信息
+     * @throws: Exception
+     */
+	public UserInfoVo selectUserInfoByUserId(Integer userId) throws Exception{
+		// 查询用户信息
+		UserInfo userInfo = userInfoMapper.selectByUserId(userId);
+		// 如果用户不存在返回提示信息
+		if(userInfo == null) {
+			throw new BusinessException(ErrorCode.USER_NOT_EXIST);
+		}
+		// 创建返回实体
+		UserInfoVo userInfoVo = new UserInfoVo();
+		// 属性拷贝
+		BeanUtils.copyProperties(userInfo, userInfoVo);
+		// 查询用户角色
+		List<UserRole> userRole = userRoleMapper.selectRoleByUserId(userInfo.getUserId());
+		// 添加角色信息
+		userInfoVo.setRoleId(userRole.get(0).getRoleId());
+		// 返回实体信息
+		return userInfoVo;
+	}
+	
+    /**   
+     * @Title: updateUserInfo
+     * @Description: 更新用户信息
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  UpdateUserInfoBo 更新用户信息
+     * @return: SuccessInfo 成功标识
+     * @throws: Exception
+     */
+	public void updateUserInfo(UpdateUserInfoBo updateUserInfoBo, HttpServletRequest request) throws Exception{
+		// 根据用户ID查询用户信息
+		UserInfo userInfo = userInfoMapper.selectByUserId(updateUserInfoBo.getUserId());
+		// 如果用户不存在返回错误信息
+		if(userInfo == null) {
+			throw new BusinessException(ErrorCode.USER_NOT_EXIST);
+		}
+        // 取得已登录管理员角色ID
+        LoginedManager loginedManager = CacheUtils.getLoginedManager(redisService, request);
+        // 属性拷贝
+        BeanUtils.copyProperties(updateUserInfoBo, userInfo);
+        // 添加更改人ID
+        userInfo.setUpdateId(loginedManager.getId());
+        // 添加更改时间
+        userInfo.setUpdateTime(System.currentTimeMillis());
+        // 创建用户角色实体
+        UserRole userRole = new UserRole();
+        // 属性拷贝相同字段的信息
+        BeanUtils.copyProperties(updateUserInfoBo, userRole);
+        // 更新用户信息
+        userInfoMapper.update(userInfo,userRole);
+	}
+	
+    /**   
+     * @Title: resetUserInfoPwd
+     * @Description: 重置用户密码
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  userId 		用户ID
+     * @return: SuccessInfo 成功标识
+     * @throws: Exception
+     */
+	public void resetUserInfoPwd(Integer userId) throws Exception{
+		// 根据用户ID取得用户信息
+		UserInfo userInfo = userInfoMapper.selectByUserId(userId);
+		// 如果用户不存在返回错误信息
+		if(userInfo == null) {
+			throw new BusinessException(ErrorCode.USER_NOT_EXIST);
+		}
+		// 设置用户默认密码
+		userInfo.setPassWord(MD5Utils.md5Encode(SHA256Utils.sha256Encode(MD5Utils.md5Encode(defaultUserPwd))));
+		// 更新用户密码信息
+		userInfoMapper.resetPwd(userInfo);
+	}
+	
+    /**   
+     * @Title: deleteUserInfo
+     * @Description: 根据用户ID删除用户信息
+     * @author: 孙忠飞 
+     * @date:   2020年12月10日 下午1:23:06
+     * @param:  userId 		用户ID
+     * @return: SuccessInfo 成功标识
+     * @throws: Exception
+     */
+	public void deleteUserInfoByUserId(Integer userId) throws Exception{
+		// 判断用户是否存在
+		UserInfo userInfo = userInfoMapper.selectByUserId(userId);
+		// 如果用户不存在返回错误信息
+		if(userInfo == null) {
+			throw new BusinessException(ErrorCode.USER_NOT_EXIST);
+		}
+		// 删除用户是逻辑删除，将删除标识置为1
+		userInfoMapper.deleteUserInfo("1", userId);
+	}
+}

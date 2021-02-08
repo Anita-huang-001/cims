@@ -1,0 +1,31 @@
+package com.mi.cims.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.mi.cims.bean.po.UserInfo;
+
+public interface UserInfoMapper {
+	
+	// 查询所有用户信息
+	List<UserInfo> selectAll();
+	
+	// 根据主键id查询用户信息
+	UserInfo selectByUserId(int userId);
+
+	// 根据登录id查询用户信息
+	UserInfo selectByLoginId(String loginId);
+	
+	// 新建用户信息
+	int insert(UserInfo userInfo);
+	
+	// 更新用户信息
+	int update(UserInfo userInfo);
+	
+	// 修改用户登录密码
+	int resetPwd(UserInfo userInfo);
+	
+	// 更新用户登陆时间
+	int updateLoginTime(@Param("loginTime")long loginTime, @Param("userId")int userId);
+}

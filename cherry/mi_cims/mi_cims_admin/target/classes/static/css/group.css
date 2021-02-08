@@ -1,0 +1,17 @@
+.margin-top-17 {
+	margin-top:17px;
+}
+
+.margin-top-40 {
+	margin-top: 40px !important;
+}
+
+.width-persent-25{
+	width: 25%;
+	display:inline-block;
+}
+
+.width-persent-10{
+	width: 10%;
+	display:inline-block;
+}

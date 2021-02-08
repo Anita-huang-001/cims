@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>樱桃进销存流程管控系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta http-equiv="X0-UA-Compatible" content="ie=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<!--[if lte IE 7]>
+	<script src="lib/JSON-js/json2.js"></script>
+	<![endif]-->
+	<!--[if lte IE 9]>
+	<script>
+		document.createElement('ng-include');
+		document.createElement('ng-pluralize');
+		document.createElement('ng-view');
+	</script>
+	<![endif]-->
+	<!-- bootstrap样式 -->
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css"></link>
+	<link rel="stylesheet" href="lib/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css"></link>
+	<!-- zTree树插件样式 -->
+	<link rel="stylesheet" href="lib/zTree/css/zTreeStyle/zTreeStyle.css"></link>
+	<!-- 应用样式 -->
+	<link rel="stylesheet" href="css/app.css"></link>
+	<!-- 口令策略样式 -->
+	<link rel="stylesheet" href="css/pwd-policy.css"></link>
+	<!-- 用户组管理样式 -->
+	<link rel="stylesheet" href="css/user-info.css"></link>
+	<link rel="shortcut icon" href="./image/logo.png" type="image/x-icon" />
+	
+<!-- 	<link rel="stylesheet" href="lib/select/select2/select2.css"></link>
+	<link rel="stylesheet" href="lib/select/select2/select2-bootstrap.css"></link>
+	<link rel="stylesheet" href="lib/select/angular-ui-select/select.css"></link> -->
+	
+</head>
+<body data-ng-app="app" id="ng-app">
+	<!-- 主视图 -->
+	<div data-ui-view>正在加载...</div>  
+
+	<!-- angularjs -->
+	<script type="text/javascript" src="lib/angular/angular.js"></script>
+	<!-- angularjs路由 -->
+	<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+	<!-- angularjs基于bootstrap的ui -->
+	<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<!-- angularjs动画 -->
+	<script type="text/javascript" src="lib/angular-animate/angular-animate.js"></script>
+	<!-- angularjs多语言化 -->
+	<script type="text/javascript" src="lib/angular-translate/angular-translate.js"></script>
+	<!-- angularjs多语言化本地文件 -->
+	<script type="text/javascript" src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+	<!-- angularjs消息提示模块 -->
+	<script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
+	<!-- highchart图表库 -->
+	<script type="text/javascript" src="lib/highcharts/highcharts.js"></script>
+	<!-- angularjs highchart图表模块 -->
+	<script type="text/javascript" src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+	
+	<!-- 懒加载oclazyload-->
+	<script type="text/javascript" src="lib/oclazyload/dist/ocLazyLoad.js"></script>
+	<!-- jquery -->
+	<script type="text/javascript" src="lib/jquery/jquery.js"></script>  
+	<!-- bootstrap -->
+	<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
+	<!-- 加解密库 -->
+	<script type="text/javascript" src="lib/crypto-js/crypto-js.js"></script>
+	<!-- zTree树插件库 -->
+	<script type="text/javascript" src="lib/zTree/js/jquery.ztree.all.js"></script>
+    <!-- 文件上传 -->
+	<script type="text/javascript" src="lib/ng-file-upload/dist/ng-file-upload.min.js"></script>
+   <script type="text/javascript" src="lib/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+
+	<!-- 主应用 -->
+	<script type="text/javascript" src="js/App.js"></script>
+	<!-- 系统常量 -->
+	<script type="text/javascript" src="js/AppConstant.js"></script>
+	<!-- http拦截器 -->
+	<script type="text/javascript" src="js/interceptor/HttpInterceptor.js"></script>
+	<!-- 应用配置 -->
+	<script type="text/javascript" src="js/AppConfig.js"></script>
+	<!-- 应用页面跳转路由配置 -->
+	<script type="text/javascript" src="js/AppUrlRouter.js"></script>
+	<!-- 全局监听配置 -->
+	<script type="text/javascript" src="js/AppRootListener.js"></script>
+	<!-- 消息对话框服务 -->
+	<script type="text/javascript" src="js/service/MessageBoxService.js"></script>
+	<!-- 显示示例服务 -->
+	<script type="text/javascript" src="js/service/ShowSamplePageService.js"></script>
+	<!-- 加解密服务 -->
+	<script type="text/javascript" src="js/service/CryptService.js"></script>
+	<!-- 多语言转化过滤器 -->
+	<script type="text/javascript" src="js/filter/Translate.js"></script>
+	<!-- 模态窗口控制器 -->
+	<script type="text/javascript" src="js/controller/MessageBoxController.js"></script>
+	<!-- 显示示例控制器 -->
+	<script type="text/javascript" src="js/controller/ShowSamplePageController.js"></script>
+	<!-- 整数判断指令 -->
+	<script type="text/javascript" src="js/directive/Range.js"></script>
+	<!-- 多选框树指令 -->
+	<script type="text/javascript" src="js/directive/CheckBoxTree.js"></script>
+	<!--BootStrop日期时间控件  -->
+	<script type="text/javascript" src="lib/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="lib/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<!--chart 图表控件  -->
+	<script type="text/javascript" src="lib/chart/Chart.js"></script>
+	
+<!-- 	<script type="text/javascript" src="lib/select/select2/angular-select2.js"></script>
+	<script type="text/javascript" src="lib/select/select2/select2.min.js"></script>
+	<script type="text/javascript" src="lib/select/angular-ui-select/select.js"></script>
+	<script type="text/javascript" src="lib/select/angular-ui-select2/src/select2.js"></script> -->
+	
+	
+</body>
+</html>

@@ -1,0 +1,28 @@
+<view class="content">
+  <view class="input">
+    <view class="input1">
+      <view>原密码</view>
+      <view>
+        <input class="input1_input" password="{{oldShowPwd}}" id="oldPwd" name="oldPwd" value="{{oldPwd}}" placeholder="请输入原密码" bindinput="saveOldPwd"/>
+        <i-icon class="input1_icon" data-id="oldPwd" type="{{oldShowPwd ? 'browse_fill' : 'browse'}}" size="24" color="#000" bindtap="changeShow"/>
+      </view>
+    </view>
+    <view class="input2">
+      <view>新密码</view>
+      <view>
+        <input class="input2_input" password="{{newShowPwd}}" id="newPwd" name="newPwd" value="{{newPwd}}" placeholder="请输入新密码" bindinput="saveNewPwd"/>
+        <i-icon class="input2_icon" data-id="newPwd" type="{{newShowPwd ? 'browse_fill' : 'browse'}}" size="24" color="#000" bindtap="changeShow"/>
+      </view>
+    </view>
+    <view class="input3">
+      <view>确认密码</view>
+      <view>
+        <input class="input3_input" password="{{confirmShowPwd}}" id="confirmPwd" name="confirmPwd" value="{{confirmPwd}}" placeholder="请输入确认密码" bindinput="saveConfirmPwd"/>
+        <i-icon class="input3_icon" data-id="confirmPwd" type="{{confirmShowPwd ? 'browse_fill' : 'browse'}}" size="24" color="#000" bindtap="changeShow"/>
+      </view>
+    </view>
+  </view>
+</view>
+<view>
+  <button class="changePwd" bindtap="changePwd">修改密码</button>
+</view>

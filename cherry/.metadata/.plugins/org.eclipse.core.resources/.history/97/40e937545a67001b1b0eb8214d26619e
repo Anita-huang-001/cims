@@ -1,0 +1,132 @@
+<!-- 应用列表页面 -->
+<div class="container-fluid">
+	<!-- 导航栏 -->
+	<div class="row breadcrumbs" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li><i class="glyphicon glyphicon-home"></i> <a
+				href="javaScript:void(0);" data-ng-click="go('home.top')">{{'主页'|T:'300301'}}</a>
+			</li>
+			<li>{{'用户管理'|T:'300401'}}</li>
+		</ul>
+	</div>
+	<!-- 内容主体 -->
+	<div class="main-content">
+		<!-- 查询条件 -->
+		<div class="content-panel panel panel-success">
+			<!-- 标题 -->
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="glyphicon glyphicon-search"></i>{{'查询条件'|T:'000005'}}</h3>
+			</div>
+			<!-- 查询条件 -->
+			<div class="panel-body">
+				<!-- 查询条件表单 -->
+				<form name="conditionForm" class="form-horizontal" role="form"
+					novalidate>
+					<!-- 登录名 -->
+					<div class="col-sm-6 form-group form-item-group">
+						<label for="loginId" class="col-sm-3 form-input-label">{{'登录名'}}</label>
+						<div class="col-sm-9">
+							<!-- 应用名称输入框 -->
+							<input type="text" class="form-input form-control"
+								id="loginId" name="loginId" maxlength="32"
+								data-ng-model="condition.loginId">
+						</div>
+					</div>
+					<!-- 角色 -->
+					<div class="col-sm-6 form-group form-item-group">
+						<label for="roleId" class="col-sm-3 form-input-label">{{'角色名称'}}</label>
+						<div class="col-sm-9">
+							<!-- 角色下拉框 -->
+							<select class="form-input form-control" data-ng-model="condition.roleId">
+								<option data-ng-repeat="x in roleDropDown" value="{{x.key}}">{{x.value}}</option>
+							</select>
+						</div>
+					</div>
+				<!-- 操作按钮 -->
+				<div class="center-block">
+					<!-- 查询按钮 -->
+						<button type="button" class="form-bottom-button btn btn-success"
+							data-ng-disabled="conditionForm.$invalid" data-ng-click="search()"  data-ng-if="operationCheck('GET_USER')">
+							<span class="glyphicon glyphicon-search"></span>{{'查询'|T:'200006'}}
+						</button>
+						<!-- 清空按钮 -->
+						<button type="button" class="form-bottom-button btn btn-warning"
+							data-ng-click="reset()">
+							<span class="glyphicon glyphicon-repeat"></span>{{'清空'|T:'200007'}}
+						</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		<!-- 查询结果 -->
+		<div class="content-panel panel panel-success">
+			<!-- 标题 -->
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="glyphicon glyphicon-th-list"></i>{{'查询结果'|T:'000006'}}
+				</h3>
+			</div>
+			<!-- 查询结果列表 -->
+			<div class="panel-body result-panel-body table-responsive">
+				<!-- 操作按钮 -->
+				<div class="table-title-panel">
+					<!-- 新建按钮 -->
+					<button type="button" class="btn btn-success" data-ng-click="go('home.userInfoAdd')" data-ng-if="operationCheck('ADD_USER')">
+						<span class="glyphicon glyphicon-plus"></span>{{'新建'|T:'200008'}}
+					</button>
+				</div>
+				<!-- 结果列表 -->
+				<table class="table table-striped table-bordered table-hover dataTable">
+					<!-- 表格头 -->
+					<thead>
+						<tr role="row">
+							<th width="10%">{{'序号'|T:'000007'}}</th>
+							<th width="11%">{{'登录名'|T:'300404'}}</th>
+							<th width="12%">{{'用户名'|T:'300405'}}</th>
+							<th width="12%">{{'电话号码'|T:'300406'}}</th>
+							<th width="15%">{{'电子邮件'|T:'300407'}}</th>
+							<th width="14%">{{'角色名称'|T:'300408'}}</th>
+							<th width="16%">{{'上一次登录时间'|T:'300409'}}</th>
+							<th width="10%">{{'操作'|T:'000008'}}</th>
+						</tr>
+					</thead>
+					<!-- 表格体 -->
+					<tbody>
+						<tr data-ng-repeat="userinfo in listData">
+							<td>{{$index + 1}}</td>
+							<td>{{userinfo.loginId}}</td>
+							<td>{{userinfo.userName}}</td>
+							<td>{{userinfo.userPhone}}</td>
+							<td>{{userinfo.mail}}</td>
+							<td>{{userinfo.roleName}}</td>
+							<td data-ng-hide=userinfo.lastLoginTime == ""></td>
+							<td data-ng-if=userinfo.lastLoginTime != "">{{userinfo.lastLoginTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+							<td class="table-operate-icon">
+								<div class="action-buttons">
+									<a class="green" title="{{'编辑'|T:'200009'}}"
+										href="javaScript:void(0);"
+										data-ng-click="edit(userinfo.userId)" data-ng-if="operationCheck('UPDATE_USER')"> <i
+										class="glyphicon glyphicon-pencil"></i>
+									</a> 
+									<a class="red" title="{{'删除'|T:'200010'}}"
+										href="javaScript:void(0);"
+										data-ng-click="remove(userinfo.userId)" data-ng-if="operationCheck('DELETE_USER')"> <i
+										class="glyphicon glyphicon-trash"> </i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 表格中没有数据数据提示信息 -->
+				<div class="center-block table-no-data" data-ng-show="!listData || listData.length == 0">
+					<span>{{'没有数据'|T:'000015'}}</span>
+				</div>
+				<!-- 分页组件 -->
+				<div class="table-pagination-panel"
+					data-ng-show="listData && listData.length > 0"
+					data-ng-include="'view/template/pagination.html'"></div>
+			</div>
+		</div>
+	</div>
+</div>

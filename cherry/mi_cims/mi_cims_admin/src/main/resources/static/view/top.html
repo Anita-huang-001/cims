@@ -1,0 +1,35 @@
+<!-- TOP页面 -->
+<div class="container-fluid">
+<!-- 导航栏 -->
+	<div class="row breadcrumbs" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li><i class="glyphicon glyphicon-home"></i> <a
+				href="javaScript:void(0);" data-ng-click="go('home.top')">{{'主页'|T:'300301'}}</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 内容主体 -->
+	<div class="main-content">
+		<!-- 系统信息 -->
+		<div class="content-panel panel panel-success">
+		
+			<table class="table table-bordered ">
+				<tbody>
+					<tr>
+						<td width="25%">{{'生产厂商'|T:'300302'}}</td>
+						<td>{{'大连秘阵科技有限公司'|T:'300303'}}</td>
+					</tr>
+					<tr>
+						<td width="25%">{{'产品名称'|T:'300304'}}</td>
+						<td>{{'樱桃进销存流程管控系统'|T:'300305'}}</td>
+					</tr>
+					<tr>
+						<td width="25%">{{'版本号'|T:'300306'}}</td>
+						<td>{{topPage.versionNo}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,39 @@
+.content{
+  height: 100%;
+}
+.input{
+  margin-top: 200rpx;
+}
+.input1{
+  margin-left: 60rpx;
+}
+.input1_input{
+  margin-left: 200rpx;
+  margin-top: -48rpx;
+  margin-right: 100rpx;
+  border-width: 2rpx;
+  border-style: solid;
+  border-color: #000000;
+}
+.input2{
+  margin-left: 60rpx;
+  margin-top: 50rpx;
+}
+.input2_input{
+  margin-left: 200rpx;
+  margin-top: -48rpx;
+  margin-right: 100rpx;
+  border-width: 2rpx;
+  border-style: solid;
+  border-color: #000000;
+}
+.input2_icon{
+  position: fixed;
+  margin-left: 540rpx;
+  margin-top: -54rpx;
+  z-index: 2;
+}
+.login{
+  background-color: #24bdd8;
+  margin-top: 300rpx;
+}

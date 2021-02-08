@@ -1,0 +1,60 @@
+<!-- 主页面 -->
+<div class="home-page">
+	<!-- 头部内容 -->
+	<div id="header">
+		<div class="container-fluid">
+			<div class="navbar">
+				<!-- 左侧系统标题 -->
+				<div class="navbar-header pull-left">
+					<div class="navbar-brand"> 
+						<!-- 公司logo图片 --> 
+						<!-- <img class="click" alt="logo" src="image/logo.png" data-ng-click="go('home.top')"> --> 
+						<!-- 系统名称 -->
+						<label class="text-slogan click" data-ng-click="go('home.top')">{{'樱桃进销存流程管控系统'|T:'000001'}}</label>
+					</div>
+				</div>
+				<!-- 右侧工具 -->
+				<div class="pull-right">
+					<label  >{{'大连秘阵科技有限公司 版权所有'|T:'000002'}}</label>
+					<button type="button" class="header-tools-btn btn btn-primary dropdown-toggle" 
+					data-toggle="dropdown" title="{{'当前管理员'|T:'000012'}}">
+						<i class="glyphicon glyphicon-user"></i>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="glyphicon glyphicon-edit" href="javaScript:void(0);" data-ng-click="go('home.changeMatrixPwd')">&nbsp;{{'修改密码'|T:'000013'}}</a></li>
+						<li><a class="glyphicon glyphicon-log-out" href="javaScript:void(0);" data-ng-click="logout()">&nbsp;{{'注销'|T:'000014'}}</a></li>
+					</ul> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 左侧菜单 -->
+	<div id="sidebar">
+		<div class="sidebar-inner">
+			<ul id="sideNav" class="nav nav-pills nav-stacked">
+				<li data-ng-repeat="menuItem in menuData">
+					<a href="javaScript:void(0);" data-ng-click="clickMenu(menuItem.page, $index)">
+						<i class="glyphicon {{menuItem.icon}}"></i>{{menuItem.text}}
+						<i data-ng-if="menuItem.subMenu" 
+							class="collapse-icon glyphicon {{menuCollapseState[$index]?'glyphicon-chevron-right':'glyphicon-chevron-down'}}"></i>
+					</a>
+					<ul class="nav sub" data-uib-collapse="menuCollapseState[$index]" data-ng-if="menuItem.subMenu">
+						<li data-ng-repeat="menuSubItem in menuItem.subMenu">
+							<a href="javaScript:void(0);" data-ng-click="clickMenu(menuSubItem.page)">
+								<i class="glyphicon {{menuSubItem.icon}}"></i>{{menuSubItem.text}}
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- 右侧主内容 -->
+	<div id="content">
+		<div class="content-wrapper" data-ui-view>
+			<div>正在加载页面...</div>
+		</div>
+	</div>
+</div>

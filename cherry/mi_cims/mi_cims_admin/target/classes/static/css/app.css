@@ -1,0 +1,96 @@
+@import "login.css";
+@import "home.css";
+@import "modal.css";
+@import "matrix.css";
+
+html,body {  
+	height: 100%; 
+}
+
+/* 表单控件 */
+.form-control {
+	border-radius: 0;
+}
+
+/* 表单中的元素组 */
+.form-item-group {  
+    margin-bottom: 0px;
+}
+
+/* 表单中提示标签 */
+.form-input-label {
+	text-align: right;
+	margin-top: 18px;
+	padding-right: 0px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 表单中输入框 */
+.form-input {  
+	margin-top: 10px;
+    margin-bottom: 3px; 
+}
+
+/* 表单中输入框错误提示 */
+.form-input-error {
+	color: #ef0707;
+	width: 100%;
+	margin-right: 10px;
+}
+
+/* 表单中输入框提示 */
+.form-input-tip {
+	color: #098c4a;
+	width: 100%;
+	margin-right: 10px;
+}
+
+/* 表单中底部按钮 */
+.form-bottom-button {  
+	margin-top: 15px !important;
+	margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.btn {
+    display: inline-block;
+    color: #FFF!important;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25)!important;
+    background-image: none!important;
+    border-radius: 0;
+    box-shadow: none!important;
+    -webkit-transition: all ease .15s;
+    transition: all ease .15s;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+}
+
+/* 按钮中图标 */
+button span {
+	margin-right: 7px;
+}
+
+/* 块居中 */
+.center-block {
+    float: none !important;
+    text-align: center;
+}
+
+/* 可点击状态 */
+.click {
+	cursor: pointer;
+}
+
+/* 去掉IE文本输入框中的叉号  */
+input::-ms-clear{
+	display: none;
+}
+
+/* 去掉IE密码输入框中的查看眼睛 */
+input::-ms-reveal{
+	display: none;
+}

@@ -1,0 +1,214 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mi.cims</groupId>
+		<artifactId>mi-cims</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>mi_cims_admin</artifactId>
+	<packaging>jar</packaging>
+	<properties>
+		<!-- 项目编译后名称 -->
+		<project.build.name>mi_admin</project.build.name>
+		<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
+	<repositories>
+	    <repository>
+	        <id>jitpack.io</id>
+	        <url>https://jitpack.io</url>
+	    </repository>
+	</repositories>
+	<dependencies>
+		<!-- 全栈式Web开发模块，包括Tomcat和spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- aop切面处理模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Apache基础类型封装处理模块 -->
+		<dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<!-- 健康检查模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- redis支持模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!-- druid数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<!-- lombok依赖模块 -->
+		<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+ 		</dependency>
+		<!-- mybatis依赖模块 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<!-- mybatis分页依赖模块 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>${pagehelper.version}</version>
+		</dependency>
+		<!-- mysql依赖模块 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- json转化包依赖模块 -->
+		<dependency>  
+           <groupId>com.alibaba</groupId>  
+           <artifactId>fastjson</artifactId>
+           <version>${fastjson.verson}</version>
+     	</dependency>
+     	<!-- CSV读写依赖模块 -->
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>${opencsv.version}</version>
+		</dependency>
+		<!-- jna依赖模块 -->
+		<dependency>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna</artifactId>
+		</dependency>
+		<dependency>
+	        <groupId>org.apache.poi</groupId>
+	        <artifactId>poi-ooxml</artifactId>
+	        <version>3.10-FINAL</version>
+	    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.Ryan-Miao</groupId>
+		    <artifactId>mongo-page-helper</artifactId>
+		    <version>1.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- 工程打包文件名 -->
+		<finalName>${project.build.name}</finalName>
+		<!-- 包含mybatis的xml文件 -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<!-- 是否替换资源中的属性 -->
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+		</resources>
+		<!-- 编译插件 -->
+		<plugins>
+			<!-- spring boot在maven模式的打包插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- 创建可执行jar -->
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+			<!-- jar打包配置 -->
+			<plugin> 
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-jar-plugin</artifactId> 
+                <version>${jar.plugin.version}</version> 
+                <configuration>
+                	<!-- 排除不打入jar包的文件 -->
+                    <excludes>
+                        <exclude>application.properties</exclude> 
+                        <exclude>generatorConfig.xml</exclude> 
+                        <exclude>libmi_gm_core_soft.so</exclude> 
+                        <exclude>mi_gm_core.dll</exclude> 
+                    </excludes> 
+                </configuration> 
+            </plugin>
+			<!-- ant插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${antrun.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>default_cli</id>
+						<!-- 生命周期：集成测试 -->
+                        <phase>integration-test</phase>
+                        <!-- 目标 -->
+						<goals>
+				        	<goal>run</goal>
+				        </goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- ant对SSH2支持依赖库 -->
+                    <dependency>
+					    <groupId>org.apache.ant</groupId>
+					    <artifactId>ant-jsch</artifactId>
+					    <version>${ant.jsch.version}</version>
+					</dependency>
+                    <!-- SSH2依赖库 -->
+                    <dependency> 
+                        <groupId>com.jcraft</groupId> 
+                        <artifactId>jsch</artifactId> 
+                        <version>${jsch.version}</version> 
+                    </dependency> 
+                </dependencies> 
+			</plugin>
+			<!-- mybatis自动生成Model、Mapper插件 -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis.generator.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql.connector.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!--允许移动生成的文件 -->
+					<verbose>true</verbose>
+					<!-- 是否覆盖 -->
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

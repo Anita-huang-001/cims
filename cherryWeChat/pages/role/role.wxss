@@ -1,0 +1,12 @@
+.content{
+  height: 100%;
+  margin: 20rpx;
+}
+.content_radio{
+  margin-top: 60rpx;
+  margin-left: 140rpx;
+  margin-right: 100rpx;
+}
+.goRole{
+  margin-top: 360rpx;
+}

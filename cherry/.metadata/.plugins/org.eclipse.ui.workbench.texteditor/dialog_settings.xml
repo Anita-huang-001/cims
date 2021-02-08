@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="loginBtn" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="loginBtn"/>
+			<item value="remove"/>
+			<item value="loginTime"/>
+			<item value="phoneNum"/>
+			<item value="name"/>
+			<item value="LOGIN_TIME"/>
+			<item value="PHONE_NUM"/>
+			<item value="NAME"/>
+			<item value="DELETE_FLAG"/>
+			<item value="MAIL"/>
+			<item value="user_phone"/>
+			<item value="phone_num"/>
+			<item value="PASSWORD"/>
+			<item value="LOGIN_ID"/>
+			<item value="USER_ID"/>
+		</list>
+		<list key="replacehistory">
+			<item value="delete_flag"/>
+			<item value="mail"/>
+			<item value="user_phone"/>
+			<item value="user_name"/>
+			<item value="phone_num"/>
+			<item value="password"/>
+			<item value="login_id"/>
+			<item value="user_id"/>
+			<item value="updateForm"/>
+			<item value="cims"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="300" key="DIALOG_WIDTH"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+		<item value="410" key="DIALOG_HEIGHT"/>
+		<item value="1214" key="DIALOG_X_ORIGIN"/>
+		<item value="154" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>
